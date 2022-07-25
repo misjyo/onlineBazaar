@@ -1,38 +1,93 @@
-.App {
-  text-align: center;
+*{
+  margin: 0;
+padding: 0;
+box-sizing: border-box;
+
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+/* .sidebar{
+  border: 2px solid rgb(75, 11, 205);
+  border-radius: 20px;
+  margin:20px;
+  background: linear-gradient(135deg,#1c92d2,#f2fcfe); 
+  display: flex; */
+  /* position: fixed; */
+  /* max-width:250px; */
+  /* grid-template-columns: 1fr 1fr; */
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* } */
+/* .AddShop {
+  border:2px solid green;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 20px;
+  background: linear-gradient(100deg,#34468b,#45bdc3);
+  background-color: #184e8e;
+  margin-left:10rem;
+   max-width: 1440px;
+} */
+ul li {
+  list-style-type: none;
+  /* margin-left: 1px; */
 }
+.route{
+  /* height: 100vh; */
+  /* width: 100%; */
+  /* background-color: rgb(255, 255, 255); */
+  /* border: 30px; */
+  /* border-color: rgb(194, 193, 193); */
+  /* margin-left: 300px; */
+  /* font-size: x-large; */
+  /* margin-top: 100px; */
+  /* border:2px solid green; */
+  /* margin: 1px; */
+  padding: 20px;
+  /* border-radius: 20px; */
+  /* background: linear-gradient(100deg,#34468b,#45bdc3); */
+  /* background-color: #184e8e; */
+  background-color: white;
+  margin-left:15rem;
+   max-width: 1400px;
+    margin-top: 9px;
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+}
+.side{
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  /* text-justify: auto; */
+  list-style: none;
+ 
 }
+.sidebar{
+  height: 100vh;
+  /* height:100px; */
+  width: 230px;
+  /* background-color: rgb(53, 53, 150); */
+  /* color: white; */
+  padding-bottom: 350px;
+  padding-left: 15px;
+ /* font-size: large; */
+ /* margin-top: 9px; */
+ /* margin-bottom: 10px; */
+ /* background: linear-gradient(100deg,#01061a); */
+ /* background-color: #224a72; */
+ background-color:black;
+ /* background: linear-gradient(135deg,rgba(60, 102, 125, 0.877),#020a0b);  */
+  /* padding-right: 200px; */
+  position: fixed;
 
-.App-link {
-  color: #61dafb;
+  padding: 1rem;
+ 
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.Nav{
+  position:fixed;
+  
+ background: linear-gradient(100deg,#01061a);
+ /* background-color: #224a72; */
+ background-color:black;
+}
+.fixed-column {
+  position: absolute;
+  display: inline-block;
+  width: auto;
+  border-right: 1px solid #ddd;
 }
