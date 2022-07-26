@@ -1,7 +1,8 @@
 import React from 'react'
-import {Table, Modal,Button,Form} from 'react-bootstrap';
+import {Modal,Button,Form} from 'react-bootstrap';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import DataTable from 'react-data-table-component';
 
 export default function ViewCategory() {
 
@@ -59,11 +60,52 @@ function updateCategory(){
 
 }
 
+const columns = [
+  {
+    name: 'Category ID',
+    selector: row => row.cid,
+  },
+  {
+    name: 'Category Name',
+    selector: row => row.cname,
+  },
+  {
+    name: "Edit",
+    cell: row => <button className='btn btn-success' onClick={() => updateData(row.cid, row.cname)}>Update</button>
+  },
+  {
+    name: "Edit",
+    cell: (row) => {
+      return (<button className='btn btn-danger' onClick={() => deleteData(row.cid)}>Delete</button>);
+    }
+  }
+]
+
 
 
   return (
-    <div className='container'>
-      <h1> Category List</h1>
+    
+
+
+
+<div>
+      <h1 style={{ textAlign: 'center' }}>View Categories</h1>
+      <div className='table-container'>
+        <DataTable
+          title="Category List"
+          columns={columns}
+          data={data}
+
+          pagination
+          fixedHeader
+          highlightOnHover
+        />
+      </div>
+
+
+
+
+      {/* <h1> Category List</h1>
       <Table striped bordered hover>
     <thead>
       <tr>
@@ -89,7 +131,7 @@ function updateCategory(){
       })
 }
     </tbody>
-  </Table>
+  </Table> */}
   
   <Modal show={show} onHide={handleClose}>
     <Modal.Header closeButton>

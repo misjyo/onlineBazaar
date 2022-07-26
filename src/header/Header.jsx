@@ -6,9 +6,9 @@ import Navbar from 'react-bootstrap/Navbar';
 export default function Header() {
   return (
     <div>
-       <Navbar className="Nav"  variant="dark">
+       <Navbar className="Nav"  variant="dark" style={{position:"fixed"}}>
     <Container>
-      <Navbar.Brand href="#home">ONLINEbaZaar</Navbar.Brand>
+      <Navbar.Brand href="#home" style={{marginLeft:"2px",fontSize:"30px"}}>ONLINEbaZaar</Navbar.Brand>
       <Nav className="me-auto">
         <Nav.Link href="#home" style={{marginLeft:"450px" ,fontSize:"larger"}}>Welcomes You:Jyoti</Nav.Link>
       <button className='btn btn-primary' style={{marginLeft:"240px" }}> Edit </button>

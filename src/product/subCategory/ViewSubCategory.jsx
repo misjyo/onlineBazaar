@@ -1,6 +1,7 @@
 import React from 'react'
-import {Table,Modal,Button,Form} from 'react-bootstrap';
+import {Modal,Button,Form} from 'react-bootstrap';
 import { useState,useEffect } from 'react';
+import DataTable from 'react-data-table-component';
 
 export default function ViewSubCategory() {
 
@@ -47,7 +48,7 @@ function updateData(cid,ccid,cname)
 
 function updateSubcategory(){
   let userdata = {cid,ccid,cname}
-  fetch(`http://localhost:3001/admin/product-sub-cgt-update/${ccid}`, {
+  fetch(`http://localhost:3001/admin/product-sub-cgt-update/${cid}`, {
     method: 'PATCH',
     body: JSON.stringify(userdata),
     headers: {
@@ -57,9 +58,51 @@ function updateSubcategory(){
     .then((response) => response.json())
     .then((json) => console.log(json));
 }
+
+
+
+const columns = [
+  {
+    name: 'Category ID',
+    selector: row => row.cid,
+  },
+  {
+    name: ' Sub Category ID',
+    selector: row => row.ccid,
+  },
+  {
+    name: 'Category Name',
+    selector: row => row.cname,
+  },
+  {
+    name: "Update",
+    cell: (row) => <button className='btn btn-success' onClick={() => updateData(row.cid,row.ccid, row.cname)}>Update</button>
+  },
+  {
+    name: "Action",
+    cell: (row) => {
+      return (<button className='btn btn-danger' onClick={() => deleteData(row.cid)}>Delete</button>);
+    }
+  }
+]
   return (
     <div className='container'>
-      <h1> Sub Category List</h1>
+
+
+
+{/* <h1 style={{ textAlign: 'center' }}>View Categories</h1> */}
+      <div className='table-container'>
+        <DataTable
+          title="Category List"
+          columns={columns}
+          data={data}
+
+          pagination
+          fixedHeader
+          highlightOnHover
+        />
+      </div>
+      {/* <h1> Sub Category List</h1>
       <Table striped bordered hover>
     <thead>
       <tr>
@@ -85,7 +128,8 @@ function updateSubcategory(){
       )
     })}
     </tbody>
-  </Table>
+  </Table> */}
+  
 
   <Modal show={show} onHide={handleClose}>
     <Modal.Header closeButton>

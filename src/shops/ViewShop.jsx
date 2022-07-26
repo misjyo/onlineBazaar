@@ -1,7 +1,8 @@
 import React from 'react'
-import {Table, Modal,Button,Form,Col,Row} from 'react-bootstrap';
+import { Modal,Button,Form,Col,Row} from 'react-bootstrap';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import DataTable from 'react-data-table-component';
 
 export default function ViewShop() {
 
@@ -129,84 +130,105 @@ export default function ViewShop() {
       .then((response) => response.json())
       .then((json) => console.log(json));
     }
+
+  
+const columns = [
+  {
+    name: 'Registration no.',
+    selector: row => row.regno,
+  },
+  {
+    name: 'Shop ID',
+    selector: row => row.shopid,
+  },
+  {
+    name: 'Shopname',
+    selector: row => row.shopname,
+  },
+  {
+    name: 'Address',
+    selector: row => row.address,
+  },
+  {
+    name: 'State',
+    selector: row => row.state,
+  },
+  {
+    name: 'City',
+    selector: row => row.city,
+  },
+  {
+    name: 'Pincode',
+    selector: row => row.pincode,
+  },
+  {
+    name: 'Contact',
+    selector: row => row.contact,
+  },
+  {
+    name: 'Owner',
+    selector: row => row.owner,
+  },
+  {
+    name: 'Type',
+    selector: row => row.type,
+  },
+  {
+    name: 'Email',
+    selector: row => row.email,
+  },
+  {
+    name: 'Url',
+    selector: row => row.url,
+  },
+  {
+    name: 'GST',
+    selector: row => row.gst,
+  },
+  {
+    name: 'Turnover',
+    selector: row => row.turnover,
+  },
+  {
+    name: 'Discription',
+    selector: row => row.discription,
+  },
+  {
+    name: 'TermsCondition',
+    selector: row => row.termscondition,
+  },
+  {
+    name: 'Status',
+    selector: row => row.status,
+  },
+  {
+    name: 'Uploaddocs',
+    selector: row => row.uploaddocs,
+  },
+  {
+    name: "Update",
+    cell: (row) => <button className='btn btn-success' onClick={() => updateData(row.regno,row.shopid,row.shopname, row.address,row.state,row.city,row.pincode,row.contact, row.owner,row.type,row.email
+     , row.url,row.gst,row.turnover,row.discription, row.termscondition, row.status,row.uploaddocs)}>Update</button>
+  },
+  {
+    name: "Action",
+    cell: (row) => {
+      return (<button className='btn btn-danger' onClick={() => deleteData(row.shopid)}>Delete</button>);
+    }
+  }
+]
      
   return (
-    <div className='container' style={{overflowX:'auto'}}> 
-      <h1> ShopList</h1>
-      <Table striped bordered hover>
-    <thead>
-      <tr>
-        <th className='fixed-column' style={{marginRight:"10px"}}>RegNo.</th>
-        <th >ShopId</th>
-        <th>ShopName</th>
-        <th>Address</th>
-        <th>State</th>
-        <th>City</th>
-        <th>Pincode</th>
-        <th>Contact</th>
-        <th>Owner</th>
-        <th>Type</th>
-        <th>Email</th>
-        <th>Url</th>
-        <th>GST</th>
-        <th>Turnover</th>
-        <th>Discription</th>
-        <th>Terms and condition</th>
-        <th>Status</th>
-        <th>Uploaddocs</th>
-        <th>Action</th>
-        <th>Update</th>
-      </tr>
-    </thead>
-    <tbody>
-{
-data.map((item,index)=>{
-  return(
-      <tr key={index}>
-      <td className='fixed-column'>{item.regno}</td>
-        <td >{item.shopid}</td>
-        <td>{item.shopname}</td>
-        <td>{item.address}</td>
-        <td>{item.state}</td>
-        <td>{item.city}</td>
-        <td>{item.pincode}</td>
-        <td>{item.contact}</td>
-        <td>{item.owner}</td>
-        <td>{item.type}</td>
-        <td>{item.email}</td>
-        <td>{item.url}</td>
-        <td>{item.gst}</td>
-        <td>{item.turnover}</td>
-        <td>{item.discription}</td>
-        <td>{item.termscondition}</td>
-        <td>{item.status}</td>
-        <td>{item.uploaddocs}</td>
-        <td><button className='btn btn-danger' onClick={()=>deleteData(item.shopid)}>Delete</button></td>
-        <td><button className='btn btn-success' onClick={()=>{updateData( item.regno,  
-          item.shopid,
-          item.shopname,
-          item.address,
-          item.state,
-          item.city,
-          item.pincode,
-          item.contact,
-          item.owner,
-          item.type,
-          item.email,
-          item.url,
-          item.gst,
-          item.turnover,
-          item.discription,
-          item.termscondition,
-          item.status,
-          item.uploaddocs);
-          }}> Update</button></td>
-        </tr>
-)}
-)
-}
-    </tbody>
-  </Table>
+    <div className='container'> 
+       <DataTable
+          title="Category List"
+          columns={columns}
+          data={data}
+
+          pagination
+          fixedHeader
+          highlightOnHover
+        />
   <Modal show={show} onHide={handleClose}>
     <Modal.Header closeButton>
       <Modal.Title>update shop</Modal.Title>

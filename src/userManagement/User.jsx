@@ -95,7 +95,7 @@ function UserManagement(){
         Close
       </Button>
       <Button variant="primary" onClick={handleClose}>
-        Save Changes
+        Save 
       </Button>
     </Modal.Footer>
   </Modal>

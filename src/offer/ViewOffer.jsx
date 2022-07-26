@@ -1,6 +1,7 @@
 import React from 'react'
-import {Table, Modal,Button,Form,Col,Row} from 'react-bootstrap';
+import {Modal,Button,Form,Col,Row} from 'react-bootstrap';
 import { useState,useEffect } from 'react';
+import DataTable from 'react-data-table-component';
 
 export default function ViewOffer() {
 let [data,setData]=useState([]);
@@ -72,10 +73,65 @@ function updateOffer(){
 
 
 }
+const columns = [
+  {
+    name: 'Offer ID',
+    selector: row => row.offerid,
+  },
+  {
+    name: ' Coupancode',
+    selector: row => row.coupancode,
+  },
+  {
+    name: 'FromDate',
+    selector: row => row.fromdate,
+  },
+  {
+    name: 'ToDate',
+    selector: row => row.todate,
+  },
+  {
+    name: 'Discount Percentage',
+    selector: row => row.discountpercentage,
+  },
+  {
+    name: 'Flat Discount',
+    selector: row => row.flatdiscount,
+  },
+  {
+    name: 'valid In',
+    selector: row => row.validin,
+  },
+  {
+    name: 'Bank Offer',
+    selector: row => row.bankoffer,
+  },
+  {
+    name: "Update",
+    cell: (row) => <button className='btn btn-success' onClick={() => updateData(row.offerid,row.coupancode, row.fromdate,row.todate,row.discountpercentage,row.flatdiscount,row.validin,row.bankoffer,)}>Update</button>
+  },
+  {
+    name: "Action",
+    cell: (row) => {
+      return (<button className='btn btn-danger' onClick={() => deleteData(row.offerid)}>Delete</button>);
+    }
+  }
+]
 
   return (
-    <div className='container' style={{overflowX:'auto'}}> 
-    <h1> OfferList </h1>
+    <div className='container'> 
+
+<DataTable
+          title="Category List"
+          columns={columns}
+          data={data}
+
+          pagination
+          fixedHeader
+          highlightOnHover
+        />
+
+    {/* <h1> OfferList </h1>
     <Table striped bordered hover>
     <thead>
       <tr>
@@ -119,7 +175,7 @@ function updateOffer(){
     })
 }
     </tbody>
-  </Table>
+  </Table> */}
   <Modal show={show} onHide={handleClose}>
     <Modal.Header closeButton>
       <Modal.Title>update shop</Modal.Title>
