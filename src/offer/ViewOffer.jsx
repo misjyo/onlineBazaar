@@ -85,10 +85,12 @@ const columns = [
   {
     name: 'FromDate',
     selector: row => row.fromdate,
+    sortable:true,
   },
   {
     name: 'ToDate',
     selector: row => row.todate,
+    sortable:true,
   },
   {
     name: 'Discount Percentage',
@@ -128,7 +130,13 @@ const columns = [
 
           pagination
           fixedHeader
+          fixedHeaderScrollHeight='450px'
+          selectableRows
+          selectedRowsHighlight
           highlightOnHover
+          subHeader
+      subHeaderComponent={<input type="text" placeholder='Search here' className='w-25 form-control'/>}
+
         />
 
     {/* <h1> OfferList </h1>

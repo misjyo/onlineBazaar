@@ -15,34 +15,34 @@ function Sidebar(){
     <div className="side">
     <div className="sidebar"> 
       
-        <li style={{fontSize:"25px",color:"white"}}>Shop</li>
+        <li style={{fontSize:"25px",color:"black"}}>Shop</li>
         <ul>
-          <li> <Link to='/AddShop' style={{color:"darkgrey" ,textDecoration:"none",marginLeft:"-32px"}}>AddShop</Link> </li>
-          <li> <Link to='/ViewShop' style={{color:"darkgrey" ,textDecoration:"none" ,marginLeft:"-32px"}}>ViewShop</Link></li>
+          <li> <Link to='/AddShop' style={{color:"black" ,textDecoration:"none",marginLeft:"-32px"}}>AddShop</Link> </li>
+          <li> <Link to='/ViewShop' style={{color:"black" ,textDecoration:"none" ,marginLeft:"-32px"}}>ViewShop</Link></li>
        </ul>
-        <li style={{fontSize:"25px" ,color:"white"}}>Product</li>
+        <li style={{fontSize:"25px" ,color:"black"}}>Product</li>
         <ul>
-          <li style={{marginLeft:"-32px" ,fontSize:"20px" ,color:"white"}}>ProductCategory</li>
+          <li style={{marginLeft:"-32px" ,fontSize:"20px" ,color:"black"}}>ProductCategory</li>
           <ul>
-            <li> <Link to='/AddCategory' style={{color:"darkgrey" ,textDecoration:"none",marginLeft:"-62px"}}>AddCategory</Link></li>
-            <li> <Link to='/ViewCategory' style={{color:"darkgrey" ,textDecoration:"none",marginLeft:"-62px"}}>ViewCategory</Link></li>
+            <li> <Link to='/AddCategory' style={{color:"black" ,textDecoration:"none",marginLeft:"-62px"}}>AddCategory</Link></li>
+            <li> <Link to='/ViewCategory' style={{color:"black" ,textDecoration:"none",marginLeft:"-62px"}}>ViewCategory</Link></li>
           </ul>
-          <li style={{marginLeft:"-32px" ,fontSize:"20px" ,color:"white"}}>ProductSubCategory</li>
+          <li style={{marginLeft:"-32px" ,fontSize:"20px" ,color:"black"}}>ProductSubCategory</li>
           <ul>
-            <li> <Link to='/AddSubCategory' style={{color:"darkgrey" ,textDecoration:"none",marginLeft:"-62px"}}>AddSubCategory</Link></li>
-            <li> <Link to='/ViewSubCategory' style={{color:"darkgrey" ,textDecoration:"none",marginLeft:"-62px"}}>ViewSubCategory</Link></li>
+            <li> <Link to='/AddSubCategory' style={{color:"black" ,textDecoration:"none",marginLeft:"-62px"}}>AddSubCategory</Link></li>
+            <li> <Link to='/ViewSubCategory' style={{color:"black" ,textDecoration:"none",marginLeft:"-62px"}}>ViewSubCategory</Link></li>
           </ul>
         
             </ul>
          
-            <li style={{fontSize:"25px" ,color:"white"}}>Offer</li>
+            <li style={{fontSize:"25px" ,color:"black"}}>Offer</li>
             <ul>
-              <li><Link to='/AddOffer' style={{color:"darkgrey" ,textDecoration:"none",marginLeft:"-32px"}}>AddOffer</Link></li>
-              <li><Link to='/ViewOffer' style={{color:"darkgrey" ,textDecoration:"none",marginLeft:"-32px"}}>ViewOffer</Link></li>
+              <li><Link to='/AddOffer' style={{color:"black" ,textDecoration:"none",marginLeft:"-32px"}}>AddOffer</Link></li>
+              <li><Link to='/ViewOffer' style={{color:"black" ,textDecoration:"none",marginLeft:"-32px"}}>ViewOffer</Link></li>
           </ul>
-      <li style={{fontSize:"25px" ,color:"white"}}>UserManagement</li>
+      <li style={{fontSize:"25px" ,color:"black"}}>UserManagement</li>
       <ul>
-        <li><Link to='/User' style={{color:"darkgrey" ,textDecoration:"none",marginLeft:"-32px"}}>User</Link></li>
+        <li><Link to='/User' style={{color:"black" ,textDecoration:"none",marginLeft:"-32px"}}>User</Link></li>
       </ul>   
      
     </div>

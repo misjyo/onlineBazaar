@@ -114,7 +114,7 @@ export default function AddShop() {
       <Form.Label>Type</Form.Label>
       <select className="form-select"  value={type} onChange={(e)=>setType(e.target.value)}> 
       <option> Electronic </option>
-      <option> Grocery </option>
+      <option> Groccery </option>
       <option> Stationary </option>
       <option> Clothing </option>
       <option> Footwears</option>

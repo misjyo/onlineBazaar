@@ -5,7 +5,8 @@ import { useState } from 'react';
 import DataTable from 'react-data-table-component';
 
 export default function ViewCategory() {
-
+// let[search,setSearch]=useState("")
+// let[filterdata,setFilterdata]=useState([])
   let [data,setData]=useState([]);
 
   const [show, setShow] = useState(false);
@@ -24,13 +25,15 @@ let [cid, setCid] = useState("");
 let response = await fetch('http://localhost:3001/admin/product-cgt-get')
 let udata = await response.json() 
 setData(udata.response); 
+// setFilterdata(udata.response); 
 // console.log(udata)
     
     }
     displayCategory();
   },[])
+
+
  function deleteData (cid) {
-  
     fetch(`http://localhost:3001/admin/product-cgt-delete/${cid}`, {
       method: "DELETE",
     }).then((response) => response.json())
@@ -56,18 +59,18 @@ function updateCategory(){
   })
     .then((response) => response.json())
     .then((json) => console.log(json));
-
-
 }
 
 const columns = [
   {
     name: 'Category ID',
     selector: row => row.cid,
+   
   },
   {
     name: 'Category Name',
     selector: row => row.cname,
+    sortable:true,
   },
   {
     name: "Edit",
@@ -81,7 +84,12 @@ const columns = [
   }
 ]
 
-
+// useEffect(()=>{
+//   const result = data.filter((category)=>{
+//     return category.cname.toLowerCase().math(search.toLowerCase());
+//   });
+//   setFilterdata(result);
+// },[search]);
 
   return (
     
@@ -89,17 +97,24 @@ const columns = [
 
 
 <div>
-      <h1 style={{ textAlign: 'center' }}>View Categories</h1>
+     
       <div className='table-container'>
         <DataTable
           title="Category List"
           columns={columns}
           data={data}
-
           pagination
           fixedHeader
+          fixedHeaderScrollHeight='450px'
+          selectableRows
+          selectedRowsHighlight
           highlightOnHover
-        />
+          subHeader
+      subHeaderComponent={<input type="text" placeholder='Search here' className='w-25 form-control'/>}
+      //  value={search}
+      //  onChange={(e)=> setSearch(e.target.value)}
+       
+       />
       </div>
 
 

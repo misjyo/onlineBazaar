@@ -11,8 +11,8 @@ export default function Header() {
       <Navbar.Brand href="#home" style={{marginLeft:"2px",fontSize:"30px"}}>ONLINEbaZaar</Navbar.Brand>
       <Nav className="me-auto">
         <Nav.Link href="#home" style={{marginLeft:"450px" ,fontSize:"larger"}}>Welcomes You:Jyoti</Nav.Link>
-      <button className='btn btn-primary' style={{marginLeft:"240px" }}> Edit </button>
-      <button className='btn btn-primary' style={{marginLeft:"40px" }}> Logout </button>
+      <button className='btn btn-btn-light' style={{marginLeft:"240px" }}> Edit </button>
+      <button className='btn btn-btn-light' style={{marginLeft:"40px" }}> Logout </button>
       </Nav>
       </Container>
       </Navbar>

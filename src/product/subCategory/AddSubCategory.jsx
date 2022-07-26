@@ -26,7 +26,7 @@ export default function AddSubCategory() {
 
 
   return (
-    <div className='AddShop' >
+    <div className='AddShop'  style={{width:"70%",marginLeft:"60px"}}>
       <h1> Add Sub Category</h1>
       <Form >
     <Form.Group className="mb-3" controlId="formBasicEmail">

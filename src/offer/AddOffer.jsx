@@ -35,7 +35,7 @@ function AddOffer(){
  
   return(
     <>
-    <div  className="AddShop" >
+    <div  className="AddShop" style={{width:"70%",marginLeft:"60px"}} >
       <h1>Add Offer</h1>
       <Form>
       <Row>

@@ -73,6 +73,7 @@ const columns = [
   {
     name: 'Category Name',
     selector: row => row.cname,
+    sortable:true,
   },
   {
     name: "Update",
@@ -99,7 +100,13 @@ const columns = [
 
           pagination
           fixedHeader
+          fixedHeaderScrollHeight='450px'
+          selectableRows
+          selectedRowsHighlight
           highlightOnHover
+          subHeader
+      subHeaderComponent={<input type="text" placeholder='Search here' className='w-25 form-control'/>}
+
         />
       </div>
       {/* <h1> Sub Category List</h1>

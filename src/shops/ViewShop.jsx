@@ -136,6 +136,7 @@ const columns = [
   {
     name: 'Registration no.',
     selector: row => row.regno,
+    sticky:"left"
   },
   {
     name: 'Shop ID',
@@ -144,6 +145,7 @@ const columns = [
   {
     name: 'Shopname',
     selector: row => row.shopname,
+    sortable:true,
   },
   {
     name: 'Address',
@@ -152,10 +154,12 @@ const columns = [
   {
     name: 'State',
     selector: row => row.state,
+    sortable:true,
   },
   {
     name: 'City',
     selector: row => row.city,
+    sortable:true,
   },
   {
     name: 'Pincode',
@@ -227,7 +231,13 @@ const columns = [
 
           pagination
           fixedHeader
+          fixedHeaderScrollHeight='450px'
+          selectableRows
+          selectedRowsHighlight
           highlightOnHover
+          subHeader
+      subHeaderComponent={<input type="text" placeholder='Search here' className='w-25 form-control'/>}
+
         />
   <Modal show={show} onHide={handleClose}>
     <Modal.Header closeButton>
