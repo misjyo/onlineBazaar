@@ -2,10 +2,16 @@ import React from 'react'
 import {Modal,Button,Form} from 'react-bootstrap';
 import { useState,useEffect } from 'react';
 import DataTable from 'react-data-table-component';
+import {Link} from 'react-router-dom';
+import { GoTrashcan,GoPencil,GoDiffAdded } from "react-icons/go";
+
 
 export default function ViewSubCategory() {
 
+  let [filterdata, setFilterdata] = useState([]);
+  let [search, setSearch] = useState("");
 let[data,setData]=useState([]);
+
 
 const [show, setShow] = useState(false);
 
@@ -18,16 +24,18 @@ let [cname, setCname] = useState("");
 
 
   useEffect(()=>{
+    displaySubCategory();
+  },[])
+
     async function displaySubCategory(){
-   
   let response = await fetch('http://localhost:3001/admin/product-sub-cgt-get')
   let udata = await response.json() 
   setData(udata.response); 
+  setFilterdata(udata.response);
   // console.log(udata)
       
       }
-      displaySubCategory();
-    },[])
+   
 
     function deleteData (cid) {
 
@@ -36,6 +44,7 @@ let [cname, setCname] = useState("");
         method: "DELETE",
       }).then((response) => response.json())
       .then((json) => console.log(json));
+      displaySubCategory();
     }
 function updateData(cid,ccid,cname)
 {
@@ -57,46 +66,56 @@ function updateSubcategory(){
   })
     .then((response) => response.json())
     .then((json) => console.log(json));
+    displaySubCategory();
 }
 
 
 
 const columns = [
   {
-    name: 'Category ID',
+    name: 'CategoryName',
     selector: row => row.cid,
+    sortable:true,
   },
   {
     name: ' Sub Category ID',
     selector: row => row.ccid,
+    sortable:true,
   },
   {
-    name: 'Category Name',
+    name: ' Sub Category Name',
     selector: row => row.cname,
     sortable:true,
   },
   {
     name: "Update",
-    cell: (row) => <button className='btn btn-success' onClick={() => updateData(row.cid,row.ccid, row.cname)}>Update</button>
+    cell: (row) => <button className='btn btn-success' onClick={() => updateData(row.cid,row.ccid, row.cname)}><GoPencil/></button>
   },
   {
     name: "Action",
     cell: (row) => {
-      return (<button className='btn btn-danger' onClick={() => deleteData(row.cid)}>Delete</button>);
+      return (<button className='btn btn-danger' onClick={() => deleteData(row.cid)}><GoTrashcan/></button>);
     }
   }
 ]
+
+
+useEffect(() => {
+  const result = data.filter((value) => {
+    return value.cname.toLowerCase().match(search.toLowerCase());
+  });
+  setFilterdata(result);
+}, [search]);
+
+
   return (
     <div className='container'>
-
-
-
-{/* <h1 style={{ textAlign: 'center' }}>View Categories</h1> */}
+ <button  className="btn btn-light"> <Link to="/AddSubCategory" style={{textDecoration:"none",color:"green",fontWeight:"bolder",marginTop:"15px"}}> <GoDiffAdded/>AddSubCategory </Link></button>
       <div className='table-container'>
         <DataTable
-          title="Category List"
+          title=" Sub Category List"
           columns={columns}
-          data={data}
+          data={filterdata}
 
           pagination
           fixedHeader
@@ -105,10 +124,17 @@ const columns = [
           selectedRowsHighlight
           highlightOnHover
           subHeader
-      subHeaderComponent={<input type="text" placeholder='Search here' className='w-25 form-control'/>}
-
+          subHeaderComponent={
+            <input
+              type="search"
+              placeholder="Search here"
+              className="w-25 form-control"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          }
         />
-      </div>
+     
       {/* <h1> Sub Category List</h1>
       <Table striped bordered hover>
     <thead>
@@ -171,6 +197,7 @@ const columns = [
     </Modal.Footer>
   </Modal>
 
+    </div>
     </div>
   )
 }

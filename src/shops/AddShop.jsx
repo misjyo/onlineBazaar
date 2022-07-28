@@ -1,9 +1,13 @@
 import React from 'react'
 import {Form,Button, Col,Row} from 'react-bootstrap';
-import { useState } from 'react';
+import { useState ,useEffect} from 'react';
 
 export default function AddShop() {
 
+//state api 
+  // const [st, setSt]= useState([]);
+  // const [stateid, setStateid]= useState('');
+  // const [city, setCity]= useState([]);
 
   let [regno, setRegno] = useState("");
   let [shopid, setShopid] = useState("");
@@ -61,6 +65,31 @@ export default function AddShop() {
   }
 
 
+//fetch state city
+
+
+// useEffect( ()=>{
+//   const getstate= async()=>{
+//       const resstate= await fetch(`http://localhost/devopsdeveloper/state/getstate/${stateid}`);
+//       const resst= await resstate.json();
+//       setSt(await resst);
+//   }
+//  getstate();
+//   },[stateid]);
+
+//   const handlestate=(event)=>{
+//      const getstateid= event.target.value;
+//      setStateid(getstateid);
+//  }
+
+// useEffect( ()=>{
+//  const getcity= async()=>{   
+//      const rescity= await fetch(`http://localhost/devopsdeveloper/city/getcity/${stateid}`);
+//      const rcity= await rescity.json();
+//      setCity(await rcity);
+//  }
+// getcity();
+// },[stateid]);
 
   return (
     <>
@@ -91,10 +120,26 @@ export default function AddShop() {
     </Form.Group>
     <Form.Group className="mb-3" controlId="formBasicPassword">
       <Form.Label>State</Form.Label>
+      {/* <select className="form-select" name="state"  onChange={(e)=>handlestate(e)}>
+                  <option value="">--Select State--</option>
+                  {
+                    st.map( (getst, index)=>(
+                     <option key={index} value={getst.state_id}>{getst.state_name } </option>
+                    )) 
+                  }                  
+                </select> */}
       <Form.Control type="text" placeholder=""   value={state} onChange={(e)=>setState(e.target.value)}/>
     </Form.Group>
     <Form.Group className="mb-3" controlId="formBasicPassword">
       <Form.Label>City</Form.Label>
+      {/* <select className="form-select" name="city">
+                  <option value="">--Select City--</option>
+                  {
+                      city.map( (gcity, index)=>(
+                      <option key={index} value={gcity.city_id}> { gcity.city_name} </option>
+                      ))
+                  }                 
+                </select> */}
       <Form.Control type="text" placeholder=""  value={city} onChange={(e)=>setCity(e.target.value)}/>
     </Form.Group>
     <Form.Group className="mb-3" controlId="formBasicPassword">

@@ -1,101 +1,201 @@
 import React from "react";
-import { useState } from "react";
-import { Table ,Form,Modal,Button} from 'react-bootstrap'
+import { useState ,useEffect} from "react";
+import {Form,Modal,Button} from 'react-bootstrap'
+import DataTable from 'react-data-table-component';
+import {Link} from 'react-router-dom';
+import { GoTrashcan,GoPencil,GoDiffAdded } from "react-icons/go";
+
 function UserManagement(){
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  return(
-    <div>
-      <h1>USER MANAGEMENT</h1>
-      <button className="btn btn-primary"    onClick={handleShow}> Add New </button>
-      <div className='container'> 
-<Table striped bordered hover  >
+  let [data,setData]=useState([])
 
-      <thead>
-        <tr>
-          <th>UserId</th>
-          <th>UserName</th>
-          <th>Date of joining</th>
-          <th>Password</th>
-          <th>Department</th>
-          <th>Role</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>Mark</td>
-          <td>10-02-2022</td>
-          <td>****</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-          <td>Otto</td>
-        
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Jacob</td>
-          <td>10-02-2022</td>
-          <td>****</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-          <td>Thornton</td>
-          
-        </tr> 
-      </tbody>
-    </Table>
-      </div>
+  let[userid,setUserid]=useState("")
+  let[username,setUsername]=useState("")
+  let[doj,setDoj]=useState("")
+  let[password,setPassword]=useState("")
+  let[dept,setDept]=useState("")
+  let[role,setRole]=useState("")
+  let[status,setStatus]=useState("")
+
+  useEffect(()=>{
+    async function displayUser(){
+   
+  let response = await fetch('http://localhost:3001/user/user-get')
+  let udata = await response.json()
+  setData(udata.response); 
+      }
+      displayUser();
+    },[])
+
 
     
+//  const postData= () =>{
+//     let userdata = {userid,username,doj,password,dept,role,status};
+   
+   
+//     console.log(userdata);
+//     let reqData = {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify(userdata),
+//     };
+//     fetch("http://localhost:3001/user/user-post", reqData)
+//     .then(response => console.log(response.json())).then(data => console.log(data))
+//   }
 
+
+  function deleteData (userid) {
+    fetch(`http://localhost:3001/user/user-delete/${userid}`, {
+      method: "DELETE",
+    }).then((response) => response.json())
+    .then((json) => console.log(json));
+  }
+  
+  function updateData(userid,username,doj,password,dept,role,status)
+  {
+    setUserid(userid);
+    setUsername(username);
+    setDoj(doj);
+    setPassword(password);
+    setDept(dept);
+    setRole(role);
+    setStatus(status)
+  
+    setShow(true);
+  }
+  
+  
+  function updateCategory(){
+    let userdata ={userid,username,doj,password,dept,role,status}
+    fetch(`http://localhost:3001/user/user-update/${userid}`, {
+      method: 'PATCH',
+      body: JSON.stringify(userdata),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then((response) => response.json())
+      .then((json) => console.log(json));
+  }
+  
+    
+const columns = [
+  {
+    name: 'User ID',
+    selector: row => row.userid,
+    sortable:true,
+   
+  },
+  {
+    name: 'User Name',
+    selector: row => row.username,
+    sortable:true,
+  },
+  {
+    name: 'Date of joining',
+    selector: row => row.doj,
+    sortable:true,
+  },
+  {
+    name: 'Password',
+    selector: row => row.password,
+    sortable:true,
+  },
+  {
+    name: 'Department',
+    selector: row => row.dept,
+    sortable:true,
+  },
+  {
+    name: 'Role',
+    selector: row => row.role,
+    sortable:true,
+  },
+  {
+    name: 'Status',
+    selector: row => row.status,
+    sortable:true,
+  }, 
+  {
+    name:"Action",
+    cell:(row)=> <button className="btn btn-danger" onClick={()=>deleteData(row.userid)}> <GoTrashcan/></button>
+  },
+  {
+    name:"Edit",
+    cell:(row)=> <button className="btn btn-success" onClick={()=>updateData(row.userid,row.username,row.doj,row.password,row.dept,row.role,row.status)}><GoPencil/></button>
+  }
+]
+
+
+
+  return(
+    <div className='container'> 
+    <button  className="btn btn-light" > <Link to="/Adduser" style={{textDecoration:"none",color:"green",fontWeight:"bolder",marginTop:"15px"}}><GoDiffAdded/> Add User</Link></button>
+    <DataTable
+       title="User List"
+       columns={columns}
+       data={data}
+
+       pagination
+       fixedHeader
+       fixedHeaderScrollHeight='450px'
+       selectableRows
+       selectedRowsHighlight
+       highlightOnHover
+       subHeader
+   subHeaderComponent={<input type="text" placeholder='Search here' className='w-25 form-control'/>}
+
+     />
   <Modal show={show} onHide={handleClose}>
     <Modal.Header closeButton>
-      <Modal.Title>Modal heading</Modal.Title>
+      <Modal.Title>Add User</Modal.Title>
     </Modal.Header>
     <Modal.Body>
     <Form>
       <Form.Group className="mb-3" controlId="formBasicId">
         <Form.Label>User Id</Form.Label>
-        <Form.Control type="id" placeholder="Enter user id" />
+        <Form.Control type="id" placeholder="Enter user id" value={userid} onChange={(e)=>setUserid(e.target.value)}/>
       
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formBasicName">
         <Form.Label>User Name</Form.Label>
-        <Form.Control type="text" placeholder="Name" />
+        <Form.Control type="text" placeholder="Name"  value={username} onChange={(e)=>setUsername(e.target.value)}/>
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicDate">
         <Form.Label>Date of joining</Form.Label>
-        <Form.Control type="date" placeholder="Date" />
+        <Form.Control type="date" placeholder="Date" value={doj} onChange={(e)=>setDoj(e.target.value)}/>
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicDate">
         <Form.Label>Password</Form.Label>
-        <Form.Control type="password" placeholder="" />
+        <Form.Control type="password" placeholder="" value={password} onChange={(e)=>setPassword(e.target.value)} />
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicDepartment">
         <Form.Label>Department</Form.Label>
-        <Form.Control type="text" placeholder="Department" />
+        <Form.Control type="text" placeholder="Department" value={dept} onChange={(e)=>setDept(e.target.value)} />
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicRole">
         <Form.Label>Role</Form.Label>
-        <Form.Control type="text" placeholder="Role" />
+        <Form.Control type="text" placeholder="Role"  value={role} onChange={(e)=>setRole(e.target.value)} />
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicStatus">
         <Form.Label>Status</Form.Label>
-        <Form.Control type="text" placeholder="Status" />
+        <Form.Control type="text" placeholder="Status" value={status} onChange={(e)=>setStatus(e.target.value)} />
      </Form.Group>
     </Form>
     </Modal.Body>
     <Modal.Footer>
-      <Button variant="secondary" onClick={handleClose}>
-        Close
-      </Button>
       <Button variant="primary" onClick={handleClose}>
-        Save 
+        Close 
+      </Button>
+      <Button variant="secondary" onClick={()=>{handleClose();updateCategory();}}>
+        Save
       </Button>
     </Modal.Footer>
   </Modal>

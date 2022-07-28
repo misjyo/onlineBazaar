@@ -9,6 +9,7 @@ import ViewSubCategory from "../product/subCategory/ViewSubCategory";
 import AddShop from "../shops/AddShop";
 import ViewShop from "../shops/ViewShop";
 import User from '../userManagement/User'
+import Adduser from "../userManagement/Adduser";
 function Sidebar(){
   return (
     
@@ -17,19 +18,19 @@ function Sidebar(){
       
         <li style={{fontSize:"25px",color:"black"}}>Shop</li>
         <ul>
-          <li> <Link to='/AddShop' style={{color:"black" ,textDecoration:"none",marginLeft:"-32px"}}>AddShop</Link> </li>
+          <li> <Link to='/AddShop' style={{color:"black" ,textDecoration:"none",marginLeft:"-32px"}}></Link> </li>
           <li> <Link to='/ViewShop' style={{color:"black" ,textDecoration:"none" ,marginLeft:"-32px"}}>ViewShop</Link></li>
        </ul>
         <li style={{fontSize:"25px" ,color:"black"}}>Product</li>
         <ul>
           <li style={{marginLeft:"-32px" ,fontSize:"20px" ,color:"black"}}>ProductCategory</li>
           <ul>
-            <li> <Link to='/AddCategory' style={{color:"black" ,textDecoration:"none",marginLeft:"-62px"}}>AddCategory</Link></li>
+            <li> <Link to='/AddCategory' style={{color:"black" ,textDecoration:"none",marginLeft:"-62px"}}></Link></li>
             <li> <Link to='/ViewCategory' style={{color:"black" ,textDecoration:"none",marginLeft:"-62px"}}>ViewCategory</Link></li>
           </ul>
           <li style={{marginLeft:"-32px" ,fontSize:"20px" ,color:"black"}}>ProductSubCategory</li>
           <ul>
-            <li> <Link to='/AddSubCategory' style={{color:"black" ,textDecoration:"none",marginLeft:"-62px"}}>AddSubCategory</Link></li>
+            <li> <Link to='/AddSubCategory' style={{color:"black" ,textDecoration:"none",marginLeft:"-62px"}}></Link></li>
             <li> <Link to='/ViewSubCategory' style={{color:"black" ,textDecoration:"none",marginLeft:"-62px"}}>ViewSubCategory</Link></li>
           </ul>
         
@@ -37,12 +38,15 @@ function Sidebar(){
          
             <li style={{fontSize:"25px" ,color:"black"}}>Offer</li>
             <ul>
-              <li><Link to='/AddOffer' style={{color:"black" ,textDecoration:"none",marginLeft:"-32px"}}>AddOffer</Link></li>
+              <li><Link to='/AddOffer' style={{color:"black" ,textDecoration:"none",marginLeft:"-32px"}}></Link></li>
               <li><Link to='/ViewOffer' style={{color:"black" ,textDecoration:"none",marginLeft:"-32px"}}>ViewOffer</Link></li>
           </ul>
       <li style={{fontSize:"25px" ,color:"black"}}>UserManagement</li>
       <ul>
         <li><Link to='/User' style={{color:"black" ,textDecoration:"none",marginLeft:"-32px"}}>User</Link></li>
+      </ul>   
+      <ul>
+        <li><Link to='/Adduser' style={{color:"black" ,textDecoration:"none",marginLeft:"-32px"}}></Link></li>
       </ul>   
      
     </div>
@@ -57,6 +61,7 @@ function Sidebar(){
   <Route path='/AddCategory' element={<AddCategory/>}></Route>
   <Route path='/viewCategory' element={<ViewCategory/>}></Route>
   <Route path='/User' element={<User/>}></Route>
+  <Route path='/Adduser' element={<Adduser/>}></Route>
   
 </Routes>
 </div>

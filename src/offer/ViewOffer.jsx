@@ -2,9 +2,18 @@ import React from 'react'
 import {Modal,Button,Form,Col,Row} from 'react-bootstrap';
 import { useState,useEffect } from 'react';
 import DataTable from 'react-data-table-component';
+import {Link} from 'react-router-dom';
+import { GoTrashcan,GoPencil,GoDiffAdded } from "react-icons/go";
+
 
 export default function ViewOffer() {
-let [data,setData]=useState([]);
+
+  let [data, setData] = useState([]);
+  let [filterdata, setFilterdata] = useState([]);
+  let [search, setSearch] = useState("");
+
+
+
 
 const [show, setShow] = useState(false);
 
@@ -23,15 +32,17 @@ let [bankoffer, setBankoffer] = useState("");
 
 
   useEffect(()=>{
+    displayOffer();
+  },[])
     async function displayOffer(){
    
   let response = await fetch('http://localhost:3001/admin/offer-get')
   let udata = await response.json()
   setData(udata.response); 
+  setFilterdata(udata.response);
   // console.log(udata)
       }
-      displayOffer();
-    },[])
+   
 
 
 
@@ -40,6 +51,7 @@ let [bankoffer, setBankoffer] = useState("");
       fetch(`http://localhost:3001/admin/offer-delete/${offerid}`, {
         method: "DELETE",
       }).then((res) => console.log("user deleted", +res));
+      displayOffer();
     }
 
 
@@ -71,16 +83,18 @@ function updateOffer(){
     .then((response) => response.json())
     .then((json) => console.log(json));
 
-
+    displayOffer();
 }
 const columns = [
   {
     name: 'Offer ID',
     selector: row => row.offerid,
+    sortable:true,
   },
   {
     name: ' Coupancode',
     selector: row => row.coupancode,
+    sortable:true,
   },
   {
     name: 'FromDate',
@@ -103,6 +117,7 @@ const columns = [
   {
     name: 'valid In',
     selector: row => row.validin,
+    sortable:true,
   },
   {
     name: 'Bank Offer',
@@ -110,23 +125,34 @@ const columns = [
   },
   {
     name: "Update",
-    cell: (row) => <button className='btn btn-success' onClick={() => updateData(row.offerid,row.coupancode, row.fromdate,row.todate,row.discountpercentage,row.flatdiscount,row.validin,row.bankoffer,)}>Update</button>
+    cell: (row) => <button className='btn btn-success' onClick={() => updateData(row.offerid,row.coupancode, row.fromdate,row.todate,row.discountpercentage,row.flatdiscount,row.validin,row.bankoffer,)}><GoPencil/></button>
   },
   {
     name: "Action",
     cell: (row) => {
-      return (<button className='btn btn-danger' onClick={() => deleteData(row.offerid)}>Delete</button>);
+      return (<button className='btn btn-danger' onClick={() => deleteData(row.offerid)}><GoTrashcan/></button>);
     }
   }
 ]
 
+
+useEffect(() => {
+  const result = data.filter((value) => {
+    return value.bankoffer.toLowerCase().match(search.toLowerCase());
+  });
+  setFilterdata(result);
+}, [search]);
+
+
   return (
     <div className='container'> 
+     <button  className="btn btn-light"> <Link to="/AddOffer" style={{textDecoration:"none",color:"green",fontWeight:"bolder",marginTop:"15px"}}><GoDiffAdded/>AddOffer </Link></button>
+
 
 <DataTable
-          title="Category List"
+          title="Offer List"
           columns={columns}
-          data={data}
+          data={filterdata}
 
           pagination
           fixedHeader
@@ -135,8 +161,15 @@ const columns = [
           selectedRowsHighlight
           highlightOnHover
           subHeader
-      subHeaderComponent={<input type="text" placeholder='Search here' className='w-25 form-control'/>}
-
+          subHeaderComponent={
+            <input
+              type="search"
+              placeholder="Search here"
+              className="w-25 form-control"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          }
         />
 
     {/* <h1> OfferList </h1>

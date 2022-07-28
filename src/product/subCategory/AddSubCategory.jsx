@@ -1,8 +1,9 @@
 import React from 'react'
 import {Form,Button} from 'react-bootstrap';
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 export default function AddSubCategory() {
 
+  let[data,setData]=useState([])
   let [cid, setCid] = useState("");
   let [ccid, setCcid] = useState("");
   let [cname, setCname] = useState("");
@@ -23,6 +24,20 @@ export default function AddSubCategory() {
     fetch("http://localhost:3001/admin//product-sub-cgt-post", reqData)
     .then(response => console.log(response.json())).then(data => console.log(data))
   }
+  ////////////////api call  get category
+  useEffect(()=>{
+    displayCategory();
+  },[])
+  
+    async function displayCategory(){
+   
+  let response = await fetch('http://localhost:3001/admin/product-cgt-get')
+  let udata = await response.json() 
+  setData(udata.response); 
+  console.log(udata)
+      
+      }
+
 
 
   return (
@@ -30,9 +45,21 @@ export default function AddSubCategory() {
       <h1> Add Sub Category</h1>
       <Form >
     <Form.Group className="mb-3" controlId="formBasicEmail">
-      <Form.Label>CategoryId</Form.Label>
-      <Form.Control type="text" placeholder="category id"value={cid} onChange={(e)=>setCid(e.target.value)} />
+     {/* mapping */}
      
+      <Form.Label>CategoryName</Form.Label>
+    
+      <select className="form-select" type="text"  placeholder="category id"value={cid} onChange={(e)=>setCid(e.target.value)} > 
+      <option value="">--select category--</option>
+     {
+      data.map((item,index)=>{
+        return (
+        <option key={index} value={item.cid}>{item.cname}</option>
+      )})
+     }
+      </select>
+
+
     </Form.Group>
     <Form.Group className="mb-3" controlId="formBasicEmail">
       <Form.Label>ProductId</Form.Label>
@@ -41,7 +68,7 @@ export default function AddSubCategory() {
     </Form.Group>
 
     <Form.Group className="mb-3" controlId="formBasicPassword">
-      <Form.Label>CategoryName</Form.Label>
+      <Form.Label>SubCategoryName</Form.Label>
       <Form.Control type="text" placeholder="category name"value={cname} onChange={(e)=>setCname(e.target.value)} />
     </Form.Group>
    

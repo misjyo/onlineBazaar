@@ -3,8 +3,14 @@ import { Modal,Button,Form,Col,Row} from 'react-bootstrap';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import DataTable from 'react-data-table-component';
+import {Link} from 'react-router-dom';
+import { GoTrashcan,GoPencil,GoDiffAdded } from "react-icons/go";
+
 
 export default function ViewShop() {
+
+  let [filterdata, setFilterdata] = useState([]);
+  let [search, setSearch] = useState("");
 
   let [data, setData] = useState([]);
 
@@ -36,15 +42,17 @@ export default function ViewShop() {
   let [uploaddocs, setUploaddocs] = useState("");
 
   useEffect(()=>{
+    displayShop();
+  },[])
+
     async function displayShop(){
    
   let response = await fetch('http://localhost:3001/admin/shop-registration-get')
   let udata = await response.json()
   setData(udata.response); 
+  setFilterdata(udata.response);
       }
-      displayShop();
-    },[])
-
+    
 
 
     function deleteData(shopid) {
@@ -53,6 +61,8 @@ export default function ViewShop() {
         method: "DELETE",
       }).then((response) => response.json())
       .then((json) => console.log(json));
+
+      displayShop();
     }
 
     function updateData(regno,shopid,shopname,address,state,city,pincode,contact,owner,type,email,url,gst,turnover,discription,termscondition,status,uploaddocs)
@@ -79,42 +89,7 @@ export default function ViewShop() {
       setShow(true);
     }
   
-    // function updateShop1() {
-    //   fetch(`http://localhost:3001/admin/shop-registration-update/${shopid}`,{
-    //     method: "PATCH",
-    //     headers: {
-    //       " Accept": "application/json",
-    //       "content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({
-    //       regno: regno,
-    //             shopid: shopid,
-    //             shopname: shopname,
-    //             address: address,
-    //             state: state,
-    //             city: city,
-    //             pincode: pincode,
-    //             contact: contact,
-    //             owner: owner,
-    //             type: type,
-    //             email: email,
-    //             url: url,
-    //             gst: gst,
-    //             turnover: turnover,
-    //             discription: discription,
-    //             termscondition: termscondition,
-    //             status: status,
-    //             uploaddocs: uploaddocs
-    //           }),
-
-    //   })
-      
-    //   .then((result) => {
-    //     result.json().then((response) => {
-    //       console.log(response);
-    //     });
-    //   });
-    // }
+   
   
     const  updateShop1= ()=> {
       let data={regno,shopid,shopname,address,state,city,pincode,contact,owner,type,email,url,gst,turnover,discription,termscondition,status,uploaddocs}
@@ -129,6 +104,8 @@ export default function ViewShop() {
       })
       .then((response) => response.json())
       .then((json) => console.log(json));
+      
+      displayShop();
     }
 
   
@@ -141,6 +118,7 @@ const columns = [
   {
     name: 'Shop ID',
     selector: row => row.shopid,
+    sortable:true,
   },
   {
     name: 'Shopname',
@@ -150,6 +128,7 @@ const columns = [
   {
     name: 'Address',
     selector: row => row.address,
+    sortable:true,
   },
   {
     name: 'State',
@@ -176,10 +155,12 @@ const columns = [
   {
     name: 'Type',
     selector: row => row.type,
+    sortable:true,
   },
   {
     name: 'Email',
     selector: row => row.email,
+    sortable:true,
   },
   {
     name: 'Url',
@@ -212,22 +193,31 @@ const columns = [
   {
     name: "Update",
     cell: (row) => <button className='btn btn-success' onClick={() => updateData(row.regno,row.shopid,row.shopname, row.address,row.state,row.city,row.pincode,row.contact, row.owner,row.type,row.email
-     , row.url,row.gst,row.turnover,row.discription, row.termscondition, row.status,row.uploaddocs)}>Update</button>
+     , row.url,row.gst,row.turnover,row.discription, row.termscondition, row.status,row.uploaddocs)}><GoPencil/></button>
   },
   {
     name: "Action",
     cell: (row) => {
-      return (<button className='btn btn-danger' onClick={() => deleteData(row.shopid)}>Delete</button>);
+      return (<button className='btn btn-danger' onClick={() => deleteData(row.shopid)}><GoTrashcan/></button>);
     }
   }
 ]
+
+useEffect(() => {
+  const result = data.filter((value) => {
+    return value.shopname.toLowerCase().match(search.toLowerCase());
+  });
+  setFilterdata(result);
+}, [search]);
+
      
   return (
     <div className='container'> 
+     <button  className="btn btn-light"> <Link to="/AddShop" style={{textDecoration:"none",color:"green",fontWeight:"bolder",marginTop:"15px"}}><GoDiffAdded/>Addshop </Link></button>
        <DataTable
-          title="Category List"
+          title="Shop List"
           columns={columns}
-          data={data}
+          data={filterdata}
 
           pagination
           fixedHeader
@@ -236,9 +226,17 @@ const columns = [
           selectedRowsHighlight
           highlightOnHover
           subHeader
-      subHeaderComponent={<input type="text" placeholder='Search here' className='w-25 form-control'/>}
-
+          subHeaderComponent={
+            <input
+              type="search"
+              placeholder="Search here"
+              className="w-25 form-control"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          }
         />
+
   <Modal show={show} onHide={handleClose}>
     <Modal.Header closeButton>
       <Modal.Title>update shop</Modal.Title>
