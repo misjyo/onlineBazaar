@@ -3,9 +3,9 @@ import { Modal, Button, Form } from "react-bootstrap";
 import { useEffect } from "react";
 import { useState } from "react";
 import DataTable from "react-data-table-component";
-import {Link} from 'react-router-dom';
-import { GoTrashcan,GoPencil,GoDiffAdded } from "react-icons/go";
-
+import { Link } from "react-router-dom";
+import { GoTrashcan, GoPencil, GoDiffAdded } from "react-icons/go";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function ViewCategory() {
   let [data, setData] = useState([]);
@@ -40,6 +40,7 @@ export default function ViewCategory() {
       .then((response) => response.json())
       .then((json) => console.log(json));
     displayCategory();
+    toast("Data deleted");
   }
 
   function updateData(cid, cname) {
@@ -62,6 +63,7 @@ export default function ViewCategory() {
       .then((json) => console.log(json));
 
     displayCategory();
+    toast("Data Updated");
   }
 
   const columns = [
@@ -82,7 +84,7 @@ export default function ViewCategory() {
           className="btn btn-success"
           onClick={() => updateData(row.cid, row.cname)}
         >
-      <GoPencil/>
+          <GoPencil />
         </button>
       ),
     },
@@ -93,7 +95,8 @@ export default function ViewCategory() {
           <button
             className="btn btn-danger"
             onClick={() => deleteData(row.cid)}
-          ><GoTrashcan/>
+          >
+            <GoTrashcan />
           </button>
         );
       },
@@ -109,8 +112,21 @@ export default function ViewCategory() {
 
   return (
     <div>
-      
- <button  className="btn btn-light"> <Link to="/AddCategory" style={{textDecoration:"none",color:"green",fontWeight:"bolder",marginTop:"15px"}}><GoDiffAdded/>AddSubCategory </Link></button>
+      <button className="btn btn-light" style={{marginLeft:"950px",marginTop:"30px"}}>
+        {" "}
+        <Link
+          to="/AddCategory"
+          style={{
+            textDecoration: "none",
+            color: "green",
+            fontWeight: "bolder",
+            marginTop: "15px",
+          }}
+        >
+          <GoDiffAdded />
+          Add Category{" "}
+        </Link>
+      </button>
       <div className="table-container">
         <DataTable
           title="Category List"
@@ -177,6 +193,7 @@ export default function ViewCategory() {
           </Modal.Footer>
         </Modal>
       </div>
+      <ToastContainer />
     </div>
   );
 }
