@@ -14,6 +14,8 @@ const shiproutes = require("./Routes/Shipping/shipping.routes");
 const proinroutes = require("./Routes/Shop/productInventory/productInventory.routes");
 const prospecifyroutes =require("./Routes/Shop/productSpecification/productSpecification.routes");
 const userroutes=require("./Routes/user/user.routes");
+const bankroutes = require("./Routes/Shop/bank/bank.routes");
+const shopuserroutes = require("./Routes/Shop/shopuser/shopUser.routes");
 const app = express();
 const port = 3001;
 
@@ -56,11 +58,19 @@ app.use('/shipping',shiproutes);
 //shop //productinventory
 app.use('/shop',proinroutes);
 
-//productspecification
+//shop //productspecification
 app.use('/shop',prospecifyroutes);
+
+//shop //bank
+app.use('/shop',bankroutes);
+
+//shop //shopuser
+app.use('/shop',shopuserroutes);
 
 //user
 app.use('/user',userroutes);
+
+
 
 app.listen(port, () => {
   console.log(`server started = http://localhost:${port}`);

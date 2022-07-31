@@ -2,10 +2,9 @@
 const { con } = require("../../../modal/modal");
 
 
-
-module.exports={productsubcgtget: async (req, res) => {
+module.exports={ bankget :async (req, res) => {
   try {
-    const data = "SELECT *from productSubCategory";
+    const data = "SELECT *from bank";
     await con.query(data, (err, result) => {
       if (err) {
         return res.send({ error: err.sqlMessage });
@@ -16,10 +15,11 @@ module.exports={productsubcgtget: async (req, res) => {
     res.send({ Error: err.message });
   }},
 
-productsubcgtpost: async (req, res) => {
+
+bankpost: async (req, res) => {
   try {
     const data = req.body;
-    const q1 = "INSERT into productSubCategory SET ?";
+    const q1 = "INSERT into bank SET ?";
     await con.query(q1, data, (err, result) => {
       if (err) {
         return res.send({ error: err.sqlMessage });
@@ -30,12 +30,11 @@ productsubcgtpost: async (req, res) => {
     res.send({ Error: err.message });
   }},
 
-
-productsubcgtupdate: async (req, res) => {
+bankupdate: async (req, res) => {
   try {
     const data = req.body;
-    const id=req.params.cid;
-    const q1 = "UPDATE  productSubCategory SET ? where cid = ?";
+    const id=req.params.accno;
+    const q1 = "UPDATE  bank SET ? where accno = ?";
 
     await con.query(q1, [data, id], (err, result) => {
       if (err) {
@@ -47,12 +46,11 @@ productsubcgtupdate: async (req, res) => {
     res.send({ Error: err.message });
   }},
 
-
-productsubcgtdelete :async (req, res) => {
+bankdelete: async (req, res) => {
   try {
-    const cid = req.params.cid;
-    const q1 = "DELETE from productSubCategory where cid = ?";
-    await con.query(q1, cid, (err, result) => {
+    const id = req.params.accno;
+    const q1 = "DELETE from bank where accno = ?";
+    await con.query(q1, id, (err, result) => {
       if (err) {
         return res.send({ error: err.sqlMessage });
       }
@@ -60,6 +58,7 @@ productsubcgtdelete :async (req, res) => {
     });
   } catch (err) {
     res.send({ Error: err.message });
-  }},
-
+  }}
 };
+
+

@@ -33,8 +33,8 @@ proSpecifypost: async (req, res) => {
 proSpecifyupdate :async (req, res) => {
   try {
     const data = req.body;
-    const id =req.params.pspecification;
-    const q1 = "UPDATE  productSpecification SET ? where pspecification = ?";
+    const id =req.params.pspecify;
+    const q1 = "UPDATE  productSpecification SET ? where pspecify = ?";
 
     await con.query(q1, [data, id], (err, result) => {
       if (err) {
@@ -48,9 +48,9 @@ proSpecifyupdate :async (req, res) => {
 
 proSpecifydelete :async (req, res) => {
   try {
-    const pspecification = req.params.pspecification;
-    const q1 = "DELETE from productSpecification where pspecification = ?";
-    await con.query(q1, pspecification, (err, result) => {
+    const pspecify = req.params.pspecify;
+    const q1 = "DELETE from productSpecification where pspecify = ?";
+    await con.query(q1, pspecify, (err, result) => {
       if (err) {
         return res.send({ error: err.sqlMessage });
       }

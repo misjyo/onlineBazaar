@@ -15,6 +15,6 @@ const {
 pcgtroutes.get("/product-cgt-get" ,productcgtget);
 pcgtroutes.post("/product-cgt-post",productCategoryValidate,productcgtpost);
 pcgtroutes.patch("/product-cgt-update/:cid",productCategoryValidate,productcgtupdate);
-pcgtroutes.delete("product-cgt-delete/:cid", productcgtdelete);
+pcgtroutes.delete("/product-cgt-delete/:cid", productcgtdelete);
 
 module.exports = pcgtroutes;

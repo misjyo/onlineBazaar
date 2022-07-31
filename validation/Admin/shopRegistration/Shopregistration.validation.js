@@ -9,7 +9,7 @@ const schema = joi.object({
 
   owner: joi.string().min(2).max(10).required(),
   address: joi.string().min(2).max(50).required(),
-
+country:joi.string().min(2).max(50).required(),
   city: joi.string().min(2).max(20).required(),
 
   state: joi.string().min(2).max(20).required(),
@@ -30,6 +30,8 @@ const schema = joi.object({
 
   type: joi.string().required(),
   gst: joi.string().length(12).required(),
+  password:joi.string().required(),
+  company:joi.string().required(),
 });
 
 const shopRegistrationvalidate = async (req, res, next) => {

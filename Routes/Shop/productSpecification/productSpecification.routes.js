@@ -14,7 +14,7 @@ const {
 
 prospecifyroutes.get("/prospecify-get", proSpecifyget);
 prospecifyroutes.post("/prospecify-post",productSpecificationValidate, proSpecifypost);
-prospecifyroutes.patch("/prospecify-update/:pspecification",productSpecificationValidate,proSpecifyupdate);
-prospecifyroutes.delete("/prospecify-delete/:pspecification", proSpecifydelete);
+prospecifyroutes.patch("/prospecify-update/:pspecify",productSpecificationValidate,proSpecifyupdate);
+prospecifyroutes.delete("/prospecify-delete/:pspecify", proSpecifydelete);
 
 module.exports = prospecifyroutes;

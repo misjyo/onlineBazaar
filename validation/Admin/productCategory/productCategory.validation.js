@@ -2,7 +2,7 @@ const joi = require("joi");
 
 const schema = joi.object({
   cid: joi.string().min(1).max(10).required(),
-  cname: joi.string().min(1).max(10).required(),
+  cname: joi.string().min(1).max(20).required(),
 });
 
 const productCategoryValidate = async (req, res, next) => {

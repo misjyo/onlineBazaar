@@ -8,7 +8,7 @@ const schema = joi.object({
   pname: joi.string().min(1).max(10).required(),
   pcompany: joi.string().min(1).max(10).required(),
   shopid: joi.string().min(1).max(10).required(),
-  quantity: joi.number().required(),
+  qty: joi.string().required(),
   discription: joi.string().min(1).max(50).required(),
 });
 

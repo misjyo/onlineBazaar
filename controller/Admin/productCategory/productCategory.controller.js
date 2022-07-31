@@ -55,9 +55,9 @@ productcgtupdate :
 productcgtdelete:
   async (req, res) => {
   try {
-    const id = req.params.cid;
+    const cid = req.params.cid;
     const q1 = "DELETE from productCategory where cid = ?";
-    await con.query(q1, id, (err, result) => {
+    await con.query(q1, cid, (err, result) => {
       if (err) {
         return res.send({ error: err.sqlMessage });
       }
